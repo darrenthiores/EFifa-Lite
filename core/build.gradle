@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-        buildConfigField("String", "API_KEY", '"YOUR API KEY HERE"')
+        buildConfigField("String", "API_KEY", '"30903414062909063c29a48580c6eb46"')
         buildConfigField("String", "BASE_URL", '"v3.football.api-sports.io"')
         buildConfigField("String", "PASSWORD", '"player_db_password"')
     }

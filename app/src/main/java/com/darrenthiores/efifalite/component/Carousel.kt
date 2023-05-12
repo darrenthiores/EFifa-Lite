@@ -28,19 +28,19 @@ fun OverviewCarousel(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(100/2)
 
     BaseCarousel(
         modifier = modifier,
         pagerState = pagerState,
         onClick = onClick,
-        count = 3,
+        count = 100,
         image = { index -> getImage(index) }
     )
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(true) {
         yield()
-        delay(2000)
+        delay(3000)
         tween<Float>(600)
         pagerState.animateScrollToPage(
             page = (pagerState.currentPage + 1) % pagerState.pageCount
@@ -62,12 +62,15 @@ fun BaseCarousel(
         count = count,
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 32.dp),
-        modifier = modifier.fillMaxWidth()
-    ) { page ->
+        modifier = modifier
+            .fillMaxWidth()
+            // .height(100.dp)
+    ) { pageCount ->
+        val page = pageCount % 3
         Card(
             Modifier
                 .graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                    val pageOffset = calculateCurrentOffsetForPage(pageCount).absoluteValue
 
                     lerp(
                         start = 0.85f,

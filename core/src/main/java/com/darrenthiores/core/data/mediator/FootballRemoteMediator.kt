@@ -83,7 +83,7 @@ class FootballRemoteMediator(
         state: PagingState<Int, PlayerEntity>
     ): PlayerRemoteKeys? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id?.let { id ->
+            state.closestItemToPosition(position)?.remoteId?.let { id ->
                 localDataSource.getRemoteKeys(id = id)
             }
         }

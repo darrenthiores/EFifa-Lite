@@ -53,8 +53,8 @@ fun ChangeScreen(
             ) {
                 ChangeCard(
                     name = starting.name,
-                    photo = starting.photo.replace("%3A", ":").replace("%2F", "/"),
-                    clubPhoto = starting.clubPhoto.replace("%3A", ":").replace("%2F", "/"),
+                    photo = starting.photo, //.replace("%3A", ":").replace("%2F", "/"),
+                    clubPhoto = starting.clubPhoto, // .replace("%3A", ":").replace("%2F", "/"),
                     position = starting.position,
                     rating = starting.rating
                 )
