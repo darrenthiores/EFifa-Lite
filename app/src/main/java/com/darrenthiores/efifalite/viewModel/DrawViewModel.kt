@@ -33,8 +33,17 @@ class DrawViewModel(
     fun getCoin(): Flow<Int> = runBlocking { footballUseCase.getCoin() }
 
     fun draw(league: Int, coin: Int) = viewModelScope.launch {
+        val player = footballUseCase
+            .draw(league)
+            ?.let { DataMapper.mapPlayerToPresenter(it) }
+
         footballUseCase.updateCoin(coin)
-        _obtainedPlayer.value = footballUseCase.draw(league).let { DataMapper.mapPlayerToPresenter(it) }
+
+        if (player != null) {
+            _obtainedPlayer.value = player
+        } else {
+            footballUseCase.updateCoin(coin + 100)
+        }
     }
 
 }

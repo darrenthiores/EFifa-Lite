@@ -24,7 +24,7 @@ interface FootballUseCase {
     fun getPlayers(league: Int): Flow<PagingData<PlayerDomain>>
 
     // draw
-    suspend fun draw(league: Int): PlayerDomain
+    suspend fun draw(league: Int): PlayerDomain?
 
     // switch starting
     suspend fun updateStarting(player: UserPlayerDomain, starting: StartingDomain, place: Int)

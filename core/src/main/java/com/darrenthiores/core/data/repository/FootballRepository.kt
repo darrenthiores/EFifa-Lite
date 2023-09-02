@@ -49,18 +49,23 @@ class FootballRepository(
         }
     }
 
-    override suspend fun draw(league: Int): PlayerDomain {
-        Timber.d("Draw: $league")
+    override suspend fun draw(league: Int): PlayerDomain? {
+        Timber.d("Draw League: $league")
         val num = remoteDataSource.getPage(league)
-        Timber.d("Draw: $num")
-        val randomNum = Random.nextInt(1, num)
-        Timber.d("Draw: $randomNum")
+        Timber.d("Draw Page Count: $num")
+        val randomNum = if (num > 1) Random.nextInt(1, num) else 1
+        Timber.d("Draw Page: $randomNum")
         val player = remoteDataSource.getPlayer(league, randomNum)
         Timber.d("Draw: $player")
-        val userPlayerEntity = DataMapper.mapResponseToUserPlayerEntity(player)
-        localDataSource.insertUserPlayer(userPlayerEntity)
 
-        return DataMapper.mapResponseToDomain(player)
+        player?.let {
+            val userPlayerEntity = DataMapper.mapResponseToUserPlayerEntity(player)
+            localDataSource.insertUserPlayer(userPlayerEntity)
+
+            return DataMapper.mapResponseToDomain(player)
+        }
+
+        return null
     }
 
     override suspend fun updateStarting(

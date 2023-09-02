@@ -27,7 +27,7 @@ class FootballInteractor(
     override fun getPlayers(league: Int): Flow<PagingData<PlayerDomain>> =
         footballRepository.getPlayers(league)
 
-    override suspend fun draw(league: Int): PlayerDomain = footballRepository.draw(league)
+    override suspend fun draw(league: Int): PlayerDomain? = footballRepository.draw(league)
 
     override suspend fun updateStarting(
         player: UserPlayerDomain,

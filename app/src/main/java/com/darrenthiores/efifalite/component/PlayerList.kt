@@ -44,27 +44,28 @@ fun PlayerList(
             .fillMaxSize()
     ) {
         items(
-            items = players,
-            key = { player -> player.id }
-        ) { _player ->
-            val player = _player ?: Player(0,  "", 0, "", "", "", "", "", "",0, "", 0.0)
-            PlayerCard(
-                modifier = Modifier.semantics {
-                    contentDescription = player.name
-                },
-                name = player.name,
-                age = player.age,
-                nationality = player.nationality,
-                height = player.height,
-                weight = player.weight,
-                photo = player.photo,
-                club = player.club,
-                clubPhoto = player.clubPhoto,
-                position = player.position,
-                rating = player.rating,
-                level = 1,
-                button = {  }
-            )
+            count = players.itemCount,
+            key = { index -> index }
+        ) { index ->
+            players[index]?.let { player ->
+                PlayerCard(
+                    modifier = Modifier.semantics {
+                        contentDescription = player.name
+                    },
+                    name = player.name,
+                    age = player.age,
+                    nationality = player.nationality,
+                    height = player.height,
+                    weight = player.weight,
+                    photo = player.photo,
+                    club = player.club,
+                    clubPhoto = player.clubPhoto,
+                    position = player.position,
+                    rating = player.rating,
+                    level = 1,
+                    button = {  }
+                )
+            }
         }
 
         players.apply {

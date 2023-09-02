@@ -15,9 +15,9 @@ class RemoteDataSource(
     suspend fun getPlayer(
         league: Int,
         page: Int
-    ): PlayerResponse {
+    ): PlayerResponse? {
         val list = footballService.getPlayers(league, page).response
-        return list.random()
+        return list.randomOrNull()
     }
 
     suspend fun getPage(league: Int): Int = footballService.getPaging(league).paging.total
